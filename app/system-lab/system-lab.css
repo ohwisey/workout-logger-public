@@ -1,0 +1,94 @@
+/* Scoped to .syslab. Same language as the app: Caliper — square corners,
+   hairline rules, monospace legends, monochrome. White is the only accent;
+   LIVE is bright, PLANNED is grey. Nothing is coloured to mean "good". */
+.syslab {
+  min-height: 100svh;
+  background: #08090b;
+  color: #f4f5f7;
+  font-family: var(--font-body), Inter, ui-sans-serif, -apple-system, sans-serif;
+  padding-bottom: 60px;
+  --mono: var(--font-plex), ui-monospace, 'SF Mono', Menlo, monospace;
+  --muted: #7e858f;
+  --divider: #191c21;
+  --surface: #0e1013;
+}
+
+.syslab-head { padding: 34px 30px 8px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; }
+.syslab-head h1 { margin: 0; font-size: clamp(28px, 4vw, 46px); letter-spacing: -.035em; line-height: .95; font-weight: 700; }
+.syslab-sub { padding: 0 30px 20px; font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: .18em; font-weight: 500; }
+.syslab-legend { display: flex; gap: 20px; padding: 0 30px 20px; font-family: var(--mono); font-size: 9px; letter-spacing: .18em; font-weight: 500; color: var(--muted); }
+.syslab-legend i { display: inline-block; width: 7px; height: 7px; margin-right: 7px; vertical-align: baseline; }
+.syslab-legend .live i { background: #f4f5f7; }
+.syslab-legend .loop i { background: transparent; box-shadow: inset 0 0 0 1px #f4f5f7; }
+.syslab-legend .plan i { background: transparent; box-shadow: inset 0 0 0 1px #3a3d42; }
+
+.syslab-map { position: relative; padding: 0 30px; overflow-x: auto; }
+.syslab-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 56px; min-width: 980px; align-items: start; padding-bottom: 76px; }
+.syslab-wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.syslab-wires path { fill: none; stroke-width: 1; }
+.syslab-wires .w-live { stroke: #f4f5f7; stroke-opacity: .55; }
+.syslab-wires .w-plan { stroke: #3a3d42; stroke-dasharray: 2 5; }
+/* The return path: history read back into the screen you are typing on. */
+.syslab-wires .w-loop { stroke: #f4f5f7; stroke-opacity: .38; stroke-dasharray: 3 4; }
+
+.syslab-col { display: grid; gap: 14px; position: relative; z-index: 1; }
+.syslab-col > h2 { margin: 0 0 2px; font-family: var(--mono); font-size: 9px; letter-spacing: .18em; color: var(--muted); font-weight: 500; }
+
+.sysnode { background: var(--surface); border: 1px solid var(--divider); border-radius: 0; padding: 13px 15px; display: grid; gap: 7px; }
+.sysnode.hub { border-color: #3a3d42; background: #0b0d10; }
+.sysnode.is-plan { border-style: dashed; opacity: .55; }
+.sysnode-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.sysnode-top strong { font-size: 14px; letter-spacing: -.02em; }
+.sysnode.hub .sysnode-top strong { font-size: 16px; }
+.sysnode-status { font-family: var(--mono); font-size: 8px; font-weight: 500; letter-spacing: .16em; padding: 4px 7px; border-radius: 0; flex: none; }
+.sysnode-status.live { color: #0b0c0e; background: #f4f5f7; }
+.sysnode-status.part { color: #0b0c0e; background: #9aa1ab; }
+.sysnode-status.plan { color: var(--muted); box-shadow: inset 0 0 0 1px #3a3d42; }
+.sysnode p { margin: 0; font-size: 11.5px; color: #97a0aa; line-height: 1.55; }
+.sysnode p b { color: #f4f5f7; font-weight: 600; }
+.sysnode .sysnode-meta { font-family: var(--mono); font-size: 9.5px; color: #626a72; letter-spacing: .04em; }
+
+.systable { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--divider); padding-top: 7px; }
+.systable span { font-family: var(--mono); font-size: 10.5px; color: #97a0aa; }
+.systable b { font-family: var(--mono); font-size: 12px; font-weight: 500; color: #f4f5f7; font-variant-numeric: tabular-nums; }
+.systable b.zero { color: #565d65; }
+
+.syslab-note { margin: 26px 30px 0; border: 1px solid var(--divider); border-radius: 0; padding: 16px 18px; font-size: 12px; line-height: 1.65; color: #97a0aa; max-width: 760px; }
+.syslab-note b { color: #f4f5f7; }
+.syslab-links { padding: 18px 30px 0; display: flex; gap: 18px; }
+.syslab-links a { color: #f4f5f7; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .14em; text-decoration: none; border-bottom: 1px solid #3a3d42; padding-bottom: 3px; }
+.syslab-links a:hover { border-bottom-color: #f4f5f7; }
+
+.sysnode-open { width: 100%; margin-bottom: 8px; min-height: 44px; border: 1px solid #3a3d42; background: transparent; color: #f4f5f7; border-radius: 0; padding: 9px; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .14em; cursor: pointer; }
+.sysnode-open:hover { border-color: #f4f5f7; }
+
+.sysdb-backdrop { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; padding: 20px; background: rgba(0, 0, 0, .8); }
+.sysdb { width: min(680px, 100%); max-height: 88svh; overflow-y: auto; background: var(--surface); border: 1px solid var(--divider); border-radius: 0; padding: 24px; display: grid; gap: 14px; color: #f4f5f7; }
+.sysdb header { display: flex; justify-content: space-between; align-items: flex-start; }
+.sysdb header button { width: 44px; height: 44px; border: 0; background: transparent; color: var(--muted); font-size: 24px; cursor: pointer; line-height: 1; }
+.sysdb-micro { font-family: var(--mono); font-size: 9px; letter-spacing: .18em; font-weight: 500; color: var(--muted); }
+.sysdb h2 { margin: 4px 0 0; font-size: 22px; letter-spacing: -.035em; }
+.sysdb h3 { margin: 8px 0 0; font-size: 12px; letter-spacing: .02em; color: #f4f5f7; }
+.sysdb-line { margin: 0; font-size: 12.5px; line-height: 1.65; color: #97a0aa; }
+.sysdb-line b { color: #f4f5f7; font-weight: 600; }
+.sysdb-line code, .sysdb code { font-family: var(--mono); font-size: 11px; color: #f4f5f7; }
+.sysdb-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--divider); border: 1px solid var(--divider); border-radius: 0; overflow: hidden; }
+.sysdb-facts div { background: #0b0d10; padding: 10px 12px; display: grid; gap: 3px; }
+.sysdb-facts span { font-family: var(--mono); font-size: 8px; letter-spacing: .16em; color: var(--muted); font-weight: 500; }
+.sysdb-facts b { font-size: 12px; font-weight: 600; }
+.sysdb-tables { display: grid; gap: 1px; background: var(--divider); border: 1px solid var(--divider); border-radius: 0; overflow: hidden; }
+.sysdb-tables > div { background: #0b0d10; display: grid; grid-template-columns: 190px 44px 1fr; gap: 10px; align-items: center; padding: 9px 12px; }
+.sysdb-tables b { text-align: right; font-family: var(--mono); font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; color: #f4f5f7; }
+.sysdb-tables b.zero { color: #565d65; }
+.sysdb-tables span { font-size: 11px; color: #97a0aa; }
+.sysdb-note { margin: 0; font-size: 11px; color: var(--muted); line-height: 1.6; }
+.sysdb-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px; }
+.sysdb-links a { display: grid; gap: 3px; border: 1px solid var(--divider); border-radius: 0; padding: 11px 12px; text-decoration: none; min-height: 44px; }
+.sysdb-links a:hover { border-color: #f4f5f7; }
+.sysdb-links b { font-size: 11px; color: #f4f5f7; font-weight: 600; }
+.sysdb-links span { font-size: 10px; color: var(--muted); line-height: 1.5; }
+
+@media (max-width: 560px) {
+  .sysdb-tables > div { grid-template-columns: 1fr 44px; }
+  .sysdb-tables span { grid-column: 1 / -1; }
+}
