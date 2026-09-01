@@ -1,44 +1,36 @@
 # Workout Logger
 
 > **v1 — rough on purpose.** This is what I actually use, not a
-> finished product. Some of it is ugly and some of it will break.
-> If it breaks for you, say so in the Discord and I'll fix it.
+> finished product. Some of it will break. Tell me in the Discord
+> and I'll fix it.
 
-A workout app that's actually yours. Log your sets, see your graphs,
-and copy your whole history into Claude or ChatGPT whenever you want
-to ask it something about your training.
+Log your sets. See your graphs. Copy your whole history into Claude
+or ChatGPT and ask it what's actually going on with your training.
 
 <p align="center">
-  <img src="docs/screenshot-history.png" alt="The history screen: best weight per exercise, and a button that copies your real data for any AI" width="330">
+  <img src="docs/screenshot-history.png" alt="History screen: best weight per exercise and a button that copies your real data" width="320">
 </p>
 
-That last card is the whole point — one tap and your real training
-history is in your clipboard, ready to paste into Claude, ChatGPT,
-a spreadsheet, or a coach.
+That bottom card is the point. One tap and your real training data is
+in your clipboard, ready to paste anywhere.
 
-**Just want the simple version?** Ep. 1 builds a single-file logger
-in one prompt — no accounts, no setup, on your phone in 10 minutes:
-**[github.com/ohwisey/ep1](https://github.com/ohwisey/ep1)**
-
-This repo is the bigger one. Here's how to run it even if you've
-never touched code.
+**Want the simple version instead?** Ep. 1 builds a single-file
+logger in one prompt — no accounts, on your phone in 10 minutes:
+[github.com/ohwisey/ep1](https://github.com/ohwisey/ep1)
 
 ---
 
-## Get it running (10 minutes, no experience needed)
+## Run it (no experience needed)
 
-**1. Get Claude Code**
-
-Open your terminal and paste:
+**1.** Install Claude Code:
 
 ```
 npm install -g @anthropic-ai/claude-code
 ```
 
-(If you don't have `npm`, install Node.js first from nodejs.org —
-just click the big download button.)
+(No `npm`? Install Node.js from nodejs.org first — big download button.)
 
-**2. Download this repo and open Claude Code in it**
+**2.** Get the code and open Claude in it:
 
 ```
 git clone https://github.com/ohwisey/workout-logger-public.git
@@ -46,80 +38,60 @@ cd workout-logger-public
 claude
 ```
 
-**3. Paste this to Claude and let it work**
+**3.** Paste this:
 
 ```
-Get this app running on my computer. It's a Next.js project.
-Skip the Supabase setup for now — I know it runs in local-only
-mode without it. Install whatever it needs, start the dev server,
-and tell me the URL to open. If anything breaks, fix it and keep
-going. Explain what you're doing in plain English as you go.
+Get this Next.js app running on my computer. Skip Supabase — it runs
+local-only without it. Then fill it with about a month of realistic
+fake workout data so I can see the graphs before I log anything.
+Install what's needed, start it, and give me the URL. Fix anything
+that breaks and explain what you're doing in plain English.
 ```
 
-That's it. Claude installs everything, starts it, and hands you a
-link. Open it and start logging sets.
-
-Your data lives in your browser. Nothing is uploaded anywhere.
+Claude does the rest and hands you a link. Your data stays in your
+browser — nothing is uploaded.
 
 ---
 
-## When you want more
+## Then, when you want more
 
-**Put it on your phone.** Ask Claude:
-
-```
-Deploy this to Vercel so I can open it on my phone and add it to
-my home screen. Walk me through anything you need me to click.
-```
-
-**Make it sync across devices.** This needs a free Supabase account.
-Ask Claude:
+Just ask Claude, in the same window:
 
 ```
-Set up Supabase for this app so my data syncs between my laptop and
-my phone. Create the account steps for me, apply the SQL migrations
-in supabase/migrations, and put the keys in .env.local. Tell me
-exactly what to click and never show my keys on screen.
+Deploy this to Vercel so I can open it on my phone.
 ```
 
-**Change anything.** It's yours now:
+```
+Set up Supabase so my data syncs between my laptop and my phone.
+Walk me through the account steps and never show my keys on screen.
+```
 
 ```
-Add a body-weight field to the log screen and show it on the graph.
+Add a body-weight field and show it on the graph.
 ```
+
+It's yours now. Change whatever you want.
 
 ---
 
-## Feedback and questions
-
-Show me what you built, or ask when you get stuck:
+Questions, or show me what you built:
 **[discord.gg/A8bzYw6cCF](https://discord.gg/A8bzYw6cCF)**
 
 ---
 
-## What's in it
-
-- Build a workout day from a 57-exercise library
-- Log the weight and reps you actually completed
-- One graph per exercise, and a clean export for any AI
-- Custom exercises with a camera photo, so an odd gym machine keeps
-  its own history
-
-Not included: AI coaching, automatic programming, wearable data,
-cardio. It does one thing.
-
-## For developers
+<details>
+<summary>For developers</summary>
 
 `pnpm install && pnpm dev`. Without Supabase env vars it runs
-local-only on browser storage. Cloud setup: apply every SQL file in
-`supabase/migrations` in filename order, then put the project URL and
-publishable key in `.env.local` and in Vercel. Migrations use
-isolated `wl_*` tables, authenticated-only RLS and a private photo
-bucket.
+local-only on browser storage. Cloud: apply every SQL file in
+`supabase/migrations` in filename order, put the project URL and
+publishable key in `.env.local` and in Vercel. Isolated `wl_*`
+tables, authenticated-only RLS, private photo bucket.
 
 Deploying from a fork: Vercel blocks a deploy when the commit author
-isn't a member of the Vercel team, and the push still looks green —
-check the deployment actually reached **Ready**.
+isn't on the Vercel team, and the push still looks green — confirm
+the deployment reached **Ready**.
 
-Exercise images: see [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
+Exercise images: [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
 MIT licensed; the bundled exercise dataset keeps its Unlicense terms.
+</details>
