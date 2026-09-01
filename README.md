@@ -1,78 +1,113 @@
 # Workout Logger
 
-The full version of the tracker from **Ep. 1**. That episode builds a single-file
-logger in one prompt, no account, no database — start there if you just want the
-thing on your phone: **[github.com/ohwisey/ep1](https://github.com/ohwisey/ep1)**
+A workout app that's actually yours. Log your sets, see your graphs,
+and copy your whole history into Claude or ChatGPT whenever you want
+to ask it something about your training.
 
-This repo is the grown-up version: Next.js, Supabase, real auth, a 57-exercise
-library, per-exercise graphs and a clean export you can hand to any AI. Same idea,
-more machine. It runs local-only with browser storage if you skip the Supabase
-setup, so you can try it before wiring anything up.
+**Just want the simple version?** Ep. 1 builds a single-file logger
+in one prompt — no accounts, no setup, on your phone in 10 minutes:
+**[github.com/ohwisey/ep1](https://github.com/ohwisey/ep1)**
 
-Questions, or want to show what you built: **[discord.gg/A8bzYw6cCF](https://discord.gg/A8bzYw6cCF)**
+This repo is the bigger one. Here's how to run it even if you've
+never touched code.
 
 ---
 
-A deliberately small workout data app:
+## Get it running (10 minutes, no experience needed)
 
-1. Build a workout day from a 57-exercise library.
-2. Log the weight and reps you actually completed.
-3. See one graph per exercise and copy clean history for any other tool.
+**1. Get Claude Code**
 
-It also supports permanent custom exercises with a camera photo, so a unique gym machine can keep its own history.
+Open your terminal and paste:
 
-## Run locally
-
-```bash
-pnpm install
-cp .env.example .env.local
-pnpm dev
+```
+npm install -g @anthropic-ai/claude-code
 ```
 
-Without Supabase variables the app automatically runs in local-only demo mode using browser storage.
+(If you don't have `npm`, install Node.js first from nodejs.org —
+just click the big download button.)
 
-## Cloud setup
+**2. Download this repo and open Claude Code in it**
 
-1. Apply every SQL file in `supabase/migrations` in filename order (or run `supabase db push`).
-2. Add the project URL and publishable key to `.env.local`.
-3. Add the same variables in Vercel.
-4. Deploy the repository.
-
-The migration uses isolated `wl_*` tables, authenticated-only RLS policies, and a private photo bucket. It does not modify the original Vitality tables.
-
-## Signing in
-
-Sign-in is a one-time step. The Supabase session is stored in the browser and refreshed
-automatically, so closing the browser, refreshing, reopening a bookmark, or redeploying
-the same Vercel project all reopen straight to the workout. The app checks for an existing
-session before it renders anything and shows a loading screen while it checks, so a
-signed-in user never sees the login form. Nothing signs you out except pressing
-**Log out** in Settings.
-
-Bookmark the **production** domain (your own Vercel production domain, not a preview URL).
-That domain is stable across redeploys. Vercel preview and per-deployment URLs are
-different origins, so they hold their own separate session and will ask you to sign in
-again — they are not a substitute for the production bookmark.
-
-## Deploying
-
-Vercel blocks a deployment when the author of the deployed commit is not a member of the
-Vercel team, with `the commit author does not have contributing access to the project`.
-The push can succeed while every deploy is silently blocked, so check that a new
-deployment actually reached **Ready** rather than assuming a green push means a live site.
-Set the repository's commit author to the same identity that owns the Vercel project:
-
-```bash
-git config user.name "<vercel-account-github-login>"
-git config user.email "<id>+<login>@users.noreply.github.com"
+```
+git clone https://github.com/ohwisey/workout-logger-public.git
+cd workout-logger-public
+claude
 ```
 
-## Scope
+**3. Paste this to Claude and let it work**
 
-Included: plans, real set logging, history graphs, copy/export, custom exercises and photos.
+```
+Get this app running on my computer. It's a Next.js project.
+Skip the Supabase setup for now — I know it runs in local-only
+mode without it. Install whatever it needs, start the dev server,
+and tell me the URL to open. If anything breaks, fix it and keep
+going. Explain what you're doing in plain English as you go.
+```
 
-Not included: AI coaching, automatic programming, wearable data, cardio, deloads, or a dashboard.
+That's it. Claude installs everything, starts it, and hands you a
+link. Open it and start logging sets.
 
-## Third-party exercise images
+Your data lives in your browser. Nothing is uploaded anywhere.
 
-See [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md). This app is released under the MIT License; the bundled exercise-reference dataset retains its Unlicense terms.
+---
+
+## When you want more
+
+**Put it on your phone.** Ask Claude:
+
+```
+Deploy this to Vercel so I can open it on my phone and add it to
+my home screen. Walk me through anything you need me to click.
+```
+
+**Make it sync across devices.** This needs a free Supabase account.
+Ask Claude:
+
+```
+Set up Supabase for this app so my data syncs between my laptop and
+my phone. Create the account steps for me, apply the SQL migrations
+in supabase/migrations, and put the keys in .env.local. Tell me
+exactly what to click and never show my keys on screen.
+```
+
+**Change anything.** It's yours now:
+
+```
+Add a body-weight field to the log screen and show it on the graph.
+```
+
+---
+
+## Feedback and questions
+
+Show me what you built, or ask when you get stuck:
+**[discord.gg/A8bzYw6cCF](https://discord.gg/A8bzYw6cCF)**
+
+---
+
+## What's in it
+
+- Build a workout day from a 57-exercise library
+- Log the weight and reps you actually completed
+- One graph per exercise, and a clean export for any AI
+- Custom exercises with a camera photo, so an odd gym machine keeps
+  its own history
+
+Not included: AI coaching, automatic programming, wearable data,
+cardio. It does one thing.
+
+## For developers
+
+`pnpm install && pnpm dev`. Without Supabase env vars it runs
+local-only on browser storage. Cloud setup: apply every SQL file in
+`supabase/migrations` in filename order, then put the project URL and
+publishable key in `.env.local` and in Vercel. Migrations use
+isolated `wl_*` tables, authenticated-only RLS and a private photo
+bucket.
+
+Deploying from a fork: Vercel blocks a deploy when the commit author
+isn't a member of the Vercel team, and the push still looks green —
+check the deployment actually reached **Ready**.
+
+Exercise images: see [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
+MIT licensed; the bundled exercise dataset keeps its Unlicense terms.
