@@ -1,8 +1,20 @@
 # Workout Logger
 
+> **v1 — rough on purpose.** This is what I actually use, not a
+> finished product. Some of it is ugly and some of it will break.
+> If it breaks for you, say so in the Discord and I'll fix it.
+
 A workout app that's actually yours. Log your sets, see your graphs,
 and copy your whole history into Claude or ChatGPT whenever you want
 to ask it something about your training.
+
+<p align="center">
+  <img src="docs/screenshot-history.png" alt="The history screen: best weight per exercise, and a button that copies your real data for any AI" width="330">
+</p>
+
+That last card is the whole point — one tap and your real training
+history is in your clipboard, ready to paste into Claude, ChatGPT,
+a spreadsheet, or a coach.
 
 **Just want the simple version?** Ep. 1 builds a single-file logger
 in one prompt — no accounts, no setup, on your phone in 10 minutes:
